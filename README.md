@@ -2,5 +2,5 @@
 ===
 cutting edge software deveλopment blog
 
-![Alt text](http://app-genesis.com/wp-content/uploads/2013/11/pebble.jpg "app-genesis")
+![Alt text](https://www.dropbox.com/s/wg90nj5hhu2a3lt/cal.jpg "app-genesis")
 

@@ -41,7 +41,7 @@ object ListsBlog {
 	l1 :: l2                                  //> res25: List[Any] = List(List(1, 2), 3, 4)
 
 	def concat[T](xs: List[T], ys: List[T]): List[T] =
-    (xs foldRight ys) (_ :: _)                    //> concat: [T](xs: List[T], ys: List[T])List[T]
+    		(xs foldRight ys) (_ :: _)                    //> concat: [T](xs: List[T], ys: List[T])List[T]
 
 	concat(l1,l2)                             //> res26: List[Int] = List(1, 2, 3, 4)
 	

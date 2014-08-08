@@ -38,7 +38,7 @@ firstMatch.group(2)                               //> res1: String = Dimitris
 val s1 = "abc(.*)".r                              //> s1  : scala.util.matching.Regex = abc(.*)
 val s2 = "abcdef"                                 //> s2  : String = abcdef
 
-s2 match {
+s2 match { 
 	case s1(x) =>println(x)
 	case _ =>println("not found")
 }                                                 //> def

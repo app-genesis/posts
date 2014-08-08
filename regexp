@@ -1,0 +1,62 @@
+package example
+import scala.util.matching.Regex
+
+object RegExp {
+ 
+val pattern = "Regex".r                           //> pattern  : scala.util.matching.Regex = Regex
+val str = "Regex provides methods for creating and using regular expressions"
+                                                  //> str  : String = Regex provides methods for creating and using regular expres
+                                                  //| sions
+println(pattern findFirstIn str)                  //> Some(Regex)
+  
+
+val pattern2 = "(S|s)cala".r                      //> pattern2  : scala.util.matching.Regex = (S|s)cala
+val str2 = "Scala is scalable and cool"           //> str2  : String = Scala is scalable and cool
+
+println(pattern2 replaceFirstIn(str2, "Java"))    //> Java is scalable and cool
+
+val s = "Dimitris Ganosis"                        //> s  : String = Dimitris Ganosis
+s.split(" ")                                      //> res0: Array[String] = Array(Dimitris, Ganosis)
+
+
+val name = """(Mr|Mrs|Ms)\. ([A-Z][a-z]+) ([A-Z][a-z]+)""".r
+                                                  //> name  : scala.util.matching.Regex = (Mr|Mrs|Ms)\. ([A-Z][a-z]+) ([A-Z][a-z]+
+                                                  //| )
+val dimitris = "Mr. Dimitris Ganosis"             //> dimitris  : String = Mr. Dimitris Ganosis
+val name(title, first, last) = dimitris           //> title  : String = Mr
+                                                  //| first  : String = Dimitris
+                                                  //| last  : String = Ganosis
+val matchList = name.findAllIn(dimitris).matchData.toList
+                                                  //> matchList  : List[scala.util.matching.Regex.Match] = List(Mr. Dimitris Ganos
+                                                  //| is)
+val firstMatch = matchList(0)                     //> firstMatch  : scala.util.matching.Regex.Match = Mr. Dimitris Ganosis
+firstMatch.group(2)                               //> res1: String = Dimitris
+
+
+"abc".matches("[a-zA-Z0-9]{3}")                   //> res2: Boolean = true
+
+val s1 = "abc(.*)".r                              //> s1  : scala.util.matching.Regex = abc(.*)
+val s2 = "abcdef"                                 //> s2  : String = abcdef
+
+s2 match {
+	case s1(x) =>println(x)
+	case _ =>println("not found")
+}                                                 //> def
+
+
+val phone = """(\d{4})-(\d{3})-(\d{4})""".r       //> phone  : scala.util.matching.Regex = (\d{4})-(\d{3})-(\d{4})
+
+val phone(code, firstGroup, lastGroup) = "0141-332-5050"
+                                                  //> code  : String = 0141
+                                                  //| firstGroup  : String = 332
+                                                  //| lastGroup  : String = 5050
+
+
+val pi = """(\+|-)?(\d+)(\.\d*)?""".r             //> pi  : scala.util.matching.Regex = (\+|-)?(\d+)(\.\d*)?
+		
+val pi(sign, integerPart, decimalPart) = "+3.1415926535"
+                                                  //> sign  : String = +
+                                                  //| integerPart  : String = 3
+                                                  //| decimalPart  : String = .1415926535
+
+}

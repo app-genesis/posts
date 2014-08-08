@@ -26,7 +26,7 @@ val dimitris = "Mr. Dimitris Ganosis"             //> dimitris  : String = Mr. D
 val name(title, first, last) = dimitris           //> title  : String = Mr
                                                   //| first  : String = Dimitris
                                                   //| last  : String = Ganosis
-val matchList = name.findAllIn(dimitris).matchData.toList
+val matchList = name.findAllIn(dimitris).matchData.toList 
                                                   //> matchList  : List[scala.util.matching.Regex.Match] = List(Mr. Dimitris Ganos
                                                   //| is)
 val firstMatch = matchList(0)                     //> firstMatch  : scala.util.matching.Regex.Match = Mr. Dimitris Ganosis

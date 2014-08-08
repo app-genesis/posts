@@ -1,0 +1,48 @@
+object ListsBlog {
+
+	val nums = List(1,2,3,4)                  //> nums  : List[Int] = List(1, 2, 3, 4)
+	nums.head                                 //> res0: Int = 1
+	nums.tail                                 //> res1: List[Int] = List(2, 3, 4)
+	nums.isEmpty                              //> res2: Boolean = false
+
+	nums.last                                 //> res3: Int = 4
+	nums.init                                 //> res4: List[Int] = List(1, 2, 3)
+	
+	nums.length                               //> res5: Int = 4
+	nums take 2                               //> res6: List[Int] = List(1, 2)
+	nums drop 2                               //> res7: List[Int] = List(3, 4)
+	nums splitAt 2                            //> res8: (List[Int], List[Int]) = (List(1, 2),List(3, 4))
+	nums.indices                              //> res9: scala.collection.immutable.Range = Range(0, 1, 2, 3)
+	
+	nums.map(_*2)                             //> res10: List[Int] = List(2, 4, 6, 8)
+	nums.filter(_>2)                          //> res11: List[Int] = List(3, 4)
+	nums filterNot (_ > 2)                    //> res12: List[Int] = List(1, 2)
+	nums partition (_ < 3)                    //> res13: (List[Int], List[Int]) = (List(1, 2),List(3, 4))
+	                                          	                                          
+	nums takeWhile (_ < 3)                    //> res14: List[Int] = List(1, 2)
+	nums dropWhile (_ < 3)                    //> res15: List[Int] = List(3, 4)
+	nums span (_ < 3)                         //> res16: (List[Int], List[Int]) = (List(1, 2),List(3, 4))
+
+	nums.contains(2)                          //> res17: Boolean = true
+	nums.exists( _ % 2 == 0 )                 //> res18: Boolean = true
+		
+	nums.reduceLeft(_*_)                      //> res19: Int = 24
+	nums.foldLeft(2)(_*_)                     //> res20: Int = 48
+
+	nums.reduceRight(_*_)                     //> res21: Int = 24
+	nums.foldRight(2)(_*_)                    //> res22: Int = 48
+
+	val l1 = List(1,2)                        //> l1  : List[Int] = List(1, 2)
+	val l2 = List (3,4)                       //> l2  : List[Int] = List(3, 4)
+	
+	List.concat(l1,l2)                        //> res23: List[Int] = List(1, 2, 3, 4)
+	 
+	l1 ::: l2                                 //> res24: List[Int] = List(1, 2, 3, 4)
+	l1 :: l2                                  //> res25: List[Any] = List(List(1, 2), 3, 4)
+
+	def concat[T](xs: List[T], ys: List[T]): List[T] =
+    (xs foldRight ys) (_ :: _)                    //> concat: [T](xs: List[T], ys: List[T])List[T]
+
+	concat(l1,l2)                             //> res26: List[Int] = List(1, 2, 3, 4)
+	
+}

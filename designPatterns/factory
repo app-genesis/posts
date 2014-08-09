@@ -1,0 +1,59 @@
+// in Scala
+
+package hello
+trait Animal {
+ def speak
+}
+case class Dog extends Animal {
+ override def speak { 
+ println("woof") 
+ }
+}
+case class Cat extends Animal {
+ override def speak { println("niaou") }
+}
+object Animal {
+ def apply(kind: String): Animal = kind match {
+  case"dog" =>new Dog()
+  case"cat" =>new Cat()
+ }
+}
+object Demo {
+ def main(args: Array[String]) {
+  val d = Animal("dog")
+  d.speak
+  val c = Animal("cat")
+  c.speak
+ }
+}
+
+
+
+// in JavaScript
+
+var Dog = function(){ 
+  return { 
+      speak: "Woof" 
+  }; 
+};   	
+var Cat = function(){ 
+  return { 
+      speak: "Niaou" 
+  }; 
+};     
+var animalFactoryClass = function(){ 
+  return{ 
+      create: function(kind){ 
+          switch(kind){ 
+              case "dog": return new Dog(); 
+              case "cat": return new Cat(); 
+          } 
+      } 
+  }; 
+};    
+var animalFactory = new animalFactoryClass(); 
+
+var d = animalFactory.create("dog");   
+console.log(d.speak);
+var c = animalFactory.create("cat");   
+console.log(c.speak);

@@ -1,0 +1,32 @@
+// in JavaScript
+
+// Create two DOM elements, an input and output
+
+<inputtype="text"value="Enter some text..."> 
+<pid="output">
+
+// Set up a requestAnimationFrame loop and start observing.
+
+//Get a reference to the input and output
+var input = document.querySelector("input");
+var output = document.querySelector("#output"); 
+
+//Set up a requestAnimationFrame loop
+function update (){ 
+ requestAnimationFrame(update); 
+
+//Change the output to match the input 
+ output.innerHTML = input.value;
+}
+update();
+
+
+// in Scala
+
+Package observer
+Trait Subject {
+ Type Observer = { def receiveUpdate(subject: Any) }
+ private var observers = List[Observer]()
+ def addObserver(observer:Observer) = observers ::= observer
+ def notifyObservers = observers foreach (_.receiveUpdate(this))
+}

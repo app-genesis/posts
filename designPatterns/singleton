@@ -1,0 +1,30 @@
+//in JavaScript
+
+var fullnameSingleton = (function () {
+ var instance;
+ function init() {
+ var surname = "Ganosis";
+ var publicProperty = "Dimitris";
+ function surnameMethod(){
+  console.log( "My surname is: " + surname);
+ }
+return {
+ nameMethod: function () {
+ surnameMethod();
+ console.log( "my name is: " + publicProperty);
+     }
+   };
+}
+return {
+ getInstance: function () {
+ if ( !instance ) {
+  instance = init();
+ }
+return instance;
+   }
+};
+})();
+var fnameA = fullnameSingleton.getInstance();
+console.log(fnameA.nameMethod());
+var fnameB = fullnameSingleton.getInstance();
+console.log(fnameA === fnameB);

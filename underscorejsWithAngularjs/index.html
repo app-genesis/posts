@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="undersocre">
+<head>
+    <meta charset="UTF-8" />
+    <title>Start Using UnderscoreJs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body data-ng-controller="MainCtrl">
+    <header>
+        <h1>Some Underscore Examples</h1>
+    </header>
+    <article>
+        <section>
+            <h2>{{arrayTitle}}</h2>
+            <p>arr = [0,1,2,3,4,5,6,7,8,9]</p>
+            first: {{first}} </br>
+            last: {{last}} </br>
+            initial: {{initial}} </br>
+            without: {{without}} </br>
+            union: {{union}} </br>
+            intersection: {{intersection}} </br>
+            difference: {{difference}} </br>
+
+            <h2>{{collectionTitle}}</h2>
+            filter: {{filter}} </br>
+            map: {{map}} </br>
+            reduce: {{reduce}} </br>
+            pluck: {{pluck}} </br>
+
+            <h2>{{objectTitle}}</h2>
+            keys: {{keys}} </br>
+            values: {{values}} </br>
+            pairs: {{pairs}} </br>
+        </section>
+    </article>
+    <footer>
+        <h4> Please visit <a href="http://underscorejs.org"> underscoreJs </a></h4>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

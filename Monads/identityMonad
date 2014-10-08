@@ -1,0 +1,7 @@
+case class Id [A] (value: A)
+  for {
+       a <- Id(“Identity”)
+       b <- Id(“Monad”)
+  } yield a +b 
+
+res1: Id(Identity Monad)

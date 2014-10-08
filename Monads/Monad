@@ -1,0 +1,53 @@
+package example
+import scala.util.Random;
+import scala.io.Source
+
+object Monads {
+   
+val theguardian = Map (
+	"us" -> "http://www.theguardian.com/us",
+	"uk" -> "http://www.theguardian.com/uk"
+ )                                                //> theguardian  : scala.collection.immutable.Map[String,String] = Map(us -> htt
+                                                  //| p://www.theguardian.com/us, uk -> http://www.theguardian.com/uk)
+ val correspond = Map(
+ 	"technology" -> Map("uk" -> "technology"),
+ 	"world" -> Map("us" -> "world")
+ )                                                //> correspond  : scala.collection.immutable.Map[String,scala.collection.immutab
+                                                  //| le.Map[String,String]] = Map(technology -> Map(uk -> technology), world -> M
+                                                  //| ap(us -> world))
+  def getTheguardian(lang:String, category:String): Option[String] = for{
+  	url <- theguardian get lang
+  	subject <- correspond get category
+  	term <- subject get lang
+  	answer <- Some(Source.fromURL(url,"UTF-8").getLines().mkString("\n"))
+  } yield answer.take(170)                        //> getTheguardian: (lang: String, category: String)Option[String]
+ 
+ 
+ getTheguardian("uk","technology")                //> res0: Option[String] = Some(        
+                                                  //|     
+                                                  //| <!DOCTYPE html><html>
+                                                  //| 
+                                                  //| <head>
+                                                  //| 
+                                                  //| 		    		    <title> Latest news, sport and comment from 
+                                                  //| the Guardian | The Guardian </title>
+                                                  //| 
+                                                  //| 
+                                                  //|     <meta property="fb:app_id")
+ getTheguardian("us","world")                     //> res1: Option[String] = Some(        
+                                                  //|     
+                                                  //| <!DOCTYPE html><html>
+                                                  //| 
+                                                  //| <head>
+                                                  //| 
+                                                  //| 		    		    <title> Latest news, world news, sport and c
+                                                  //| omment from the Guardian | theguardian.com | The Guardian </title>
+                                                  //| 
+                                                  //| 
+                                                  //| )
+  
+  
+  
+ 
+ 
+}

@@ -1,0 +1,12 @@
+val list = List("Greece", "UK", "France", "Italy
+>list : List[String] = List(Greece, UK, France, Italy)
+
+val capitals = Map("Greece" ->"Athens", "UK" ->"London", "France"  ->"Paris")
+ >capitals :scala.collection.immutable.Map[String,String] = Map(Greece -> Athens, UK -> London, France -> Paris)
+
+list flatMap {
+     i =>capitals.get(i).orElse(Some("None")) map {
+     j => j
+     }                                            
+}
+>List[String] = List(Athens, London, Paris, None)

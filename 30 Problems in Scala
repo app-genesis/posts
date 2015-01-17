@@ -1,0 +1,232 @@
+import util.Random
+import scala.collection._
+  
+object ScalaProblems {
+
+//Find the last element of a list.
+  val l = List(1, 1, 2, 3, 5, 8)            //> l  : List[Int] = List(1, 1, 2, 3, 5, 8)
+	l.last                                    //> res0: Int = 8
+	 
+// Find the penultimate element of a list.
+	l.init                                    //> res1: List[Int] = List(1, 1, 2, 3, 5)
+ 
+// Find the Kth element of a list.
+	l(4)                                      //> res2: Int = 5
+
+// Find the number of elements of a list.
+	l.length                                  //> res3: Int = 6
+
+//  Reverse a list.
+	l.reverse                                 //> res4: List[Int] = List(8, 5, 3, 2, 1, 1)
+
+// Find out whether a list is a palindrome.
+	l.equals(l.reverse)                       //> res5: Boolean = false
+	val pal = 1::2::3::2::1::Nil              //> pal  : List[Int] = List(1, 2, 3, 2, 1)
+	pal.equals(pal.reverse)                   //> res6: Boolean = true
+
+// Flatten a nested list structure.
+	List(List(1), List(2), List(3)).flatten   //> res7: List[Int] = List(1, 2, 3)
+
+//Eliminate consecutive duplicates of list elements.
+	val l2 = List(1, 1, 2, 2, 2, 2, 3, 5, 8, 8)
+                                           //> l2  : List[Int] = List(1, 1, 2, 2, 2, 2, 3, 5, 8, 8)
+	
+	def elCons[A](ls: List[A]): List[A] = ls match {
+    case Nil    => Nil
+    case h :: t => h :: elCons(t.dropWhile(_ == h))
+  }                                               //> elCons: [A](ls: List[A])List[A]
+  elCons(l2)                                      //> res8: List[Int] = List(1, 2, 3, 5, 8)
+
+// Pack consecutive duplicates of list elements into sublists.
+	def pack[A](ls: List[A]): List[List[A]] = ls match{
+		case Nil => List(List())
+		case _ =>
+			val (packed, next) = ls span {_ == ls.head}
+			next match {
+				case Nil => List(packed)
+				case _ => packed :: pack(next)
+			}
+	}                                         //> pack: [A](ls: List[A])List[List[A]]
+	val ls10 = pack(l2)        
+	//> ls10  : List[List[Int]] = List(List(1, 1), List(2, 2, 2, 2), List(3), List(5), List(8, 8))
+	
+	pack(l2)                                  
+	//> res9: List[List[Int]] = List(List(1, 1), List(2, 2, 2, 2), List(3), List(5), List(8, 8))
+	
+// Run-length encoding of a list.
+	def runL[A](ls: List[A]): List[(Int,A)] =
+		pack(ls) map {e => (e.length, e.head)}
+                                             //> runL: [A](ls: List[A])List[(Int, A)]
+	runL(l2)                                  //> res10: List[(Int, Int)] = List((2,1), (4,2), (1,3), (1,5), (2,8))
+
+// Modified run-length encoding.
+	def runL2[A](ls: List[A]) = {
+		pack(ls) map {
+		e =>
+			if(e.length.equals(1)) e.head
+			else (e.length, e.head)
+	  }
+	}                                         //> runL2: [A](ls: List[A])List[Any]
+	
+	val ll = runL2(l2)                        //> ll  : List[Any] = List((2,1), (4,2), 3, 5, (2,8))
+
+// Decode a run-length encoded list.
+	def decode2[A](input:List[(Int, A)]):List[A] =
+		input.flatMap {
+			e => List.fill(e._1)(e._2)
+		}                                 //> decode2: [A](input: List[(Int, A)])List[A]
+  val k = List((4, 1), (1, 2), (2, 3), (2, 4), (1, 5), (4, 6))
+                                                  //> k  : List[(Int, Int)] = List((4,1), (1,2), (2,3), (2,4), (1,5), (4,6))
+ 
+ decode2(k)                                       //> res11: List[Int] = List(1, 1, 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 6, 6)
+
+// Run-length encoding of a list (direct solution).
+	def runDirect[A](ls: List[A]): List[(Int,A)] = ls match {
+		case Nil => List()
+		case _ =>
+			val (h, t) = ls.span { _.equals(ls.head) }
+			t match {
+				case Nil => List((h.length, h.head))
+				case _ => (h.length, h.head) :: runDirect(t)
+			}
+	}                                         //> runDirect: [A](ls: List[A])List[(Int, A)]
+		runDirect(l2)                           //> res12: List[(Int, Int)] = List((2,1), (4,2), (1,3), (1,5), (2,8))
+
+// Duplicate the elements of a list.
+	val dls = List(1, 2, 3, 4, 5, 6)          //> dls  : List[Int] = List(1, 2, 3, 4, 5, 6)
+
+	def duplicate[A](ls: List[A]): List[A] = ls.flatMap {
+		e => List.fill(2)(e)
+	}                                         //> duplicate: [A](ls: List[A])List[A]
+	duplicate(dls)                            //> res13: List[Int] = List(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6)
+
+// Duplicate the elements of a list a given number of times.
+	def duplicate2[A](n: Int, ls: List[A]): List[A] = ls.flatMap {
+		e => List.fill(n)(e)
+	}                                         //> duplicate2: [A](n: Int, ls: List[A])List[A]
+	duplicate2(5,dls)                       
+	//> res14: List[Int] = List(1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6)
+
+// Drop every Nth element from a list.
+	def dropN[A](n:Int, ls: List[A]): List[A] =
+		ls.take(n-1) ++ ls.drop(n)               //> dropN: [A](n: Int, ls: List[A])List[A]
+	dropN(3, dls)                             //> res15: List[Int] = List(1, 2, 4, 5, 6)
+
+
+// Split a list into two parts.
+	def split[A](n:Int, ls:List[A]): (List[A], List[A]) =
+		ls.splitAt(n)                     //> split: [A](n: Int, ls: List[A])(List[A], List[A])
+	
+	dls.grouped(2).toList                     //> res16: List[List[Int]] = List(List(1, 2), List(3, 4), List(5, 6))
+	dls.splitAt(2)                            //> res17: (List[Int], List[Int]) = (List(1, 2),List(3, 4, 5, 6))
+
+// Extract a slice from a list.
+	def slice[A](n: Int, k: Int, ls: List[A]): List[A] =
+		ls.drop(n).take(k-n)              //> slice: [A](n: Int, k: Int, ls: List[A])List[A]
+
+	slice(2,5,dls)                            //> res18: List[Int] = List(3, 4, 5)
+	dls.slice(2, 5)                           //> res19: List[Int] = List(3, 4, 5)
+// Rotate a list N places to the left.
+	def rotateLeft[A](n: Int, ls: List[A]): List[A] = {
+		val h = ls.take(n)
+		ls.drop(n) ++ ls.take(n)
+	}                                         //> rotateLeft: [A](n: Int, ls: List[A])List[A]
+	rotateLeft(2,dls)                         //> res20: List[Int] = List(3, 4, 5, 6, 1, 2)
+	
+// Remove the Kth element from a list.
+	def removeAt[A](n: Int, ls: List[A]) =
+		(ls.take(n) ++ ls.drop(n+1),n+1)        //> removeAt: [A](n: Int, ls: List[A])(List[A], Int)
+	removeAt(1, dls)                          //> res21: (List[Int], Int) = (List(1, 3, 4, 5, 6),2)
+
+//  Insert an element at a given position into a list.
+		def insertElem[A](elem: A, n: Int, ls: List[A]) =
+			ls.take(n) ::: elem :: ls.drop(n)
+                                      //> insertElem: [A](elem: A, n: Int, ls: List[A])List[A]
+		insertElem('a, 2, dls)            //> res22: List[Any] = List(1, 2, 'a, 3, 4, 5, 6)
+		
+// Create a list containing all integers within a given range.
+		List.range(3, 8)                  //> res23: List[Int] = List(3, 4, 5, 6, 7)
+
+//  Extract a given number of randomly selected elements from a list.
+		val l3 = List(1,2,3,4,5,6,7,8,9,10)
+                                                  //> l3  : List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+		def removeAt2[A](list: List[A], n: Int): (List[A], A) = {
+			val (a, h :: t) = list.splitAt(n)
+			(a ::: t, h)
+		}                                 //> removeAt2: [A](list: List[A], n: Int)(List[A], A)
+
+		def randomSel[A](n: Int, ls: List[A]): List[A] = {
+			if (n > 0) {
+				val (h, t) = removeAt2(ls, Random.nextInt(ls.length))
+				t :: randomSel(n - 1, h)
+			} else Nil
+			
+		}                                 //> randomSel: [A](n: Int, ls: List[A])List[A]
+		randomSel(3, l3)                  //> res24: List[Int] = List(10, 7, 2)
+		
+// Lotto: Draw N different random numbers from the set 1..M.
+		def lotto[A](n: Int, m: Int): List[Int] = {
+			var st = Stream.continually(1 + Random.nextInt(m))
+			st.distinct.take(n).toList
+		}                                 //> lotto: [A](n: Int, m: Int)List[Int]
+		
+		lotto(6, 49)                      //> res25: List[Int] = List(6, 44, 14, 9, 49, 42)
+		
+// Generate a random permutation of the elements of a list.
+		val l4 = List('a, 'b, 'c, 'd, 'e) //> l4  : List[Symbol] = List('a, 'b, 'c, 'd, 'e)
+		def randomPermute[T](ls: List[T]): List[T] = {
+			var rls = ls.permutations.toList
+			rls(Random.nextInt(rls.length))
+		}                                 //> randomPermute: [T](ls: List[T])List[T]
+		randomPermute(l4)                 //> res26: List[Symbol] = List('a, 'e, 'c, 'd, 'b)
+		
+//Generate the combinations of K distinct objects chosen from the N elements of a list.
+		 def combinations[A](n: Int, ls: List[A]): List[List[A]] = (n, ls) match {
+      case (1, ys) => ys.foldLeft(List[List[A]]())((r, c) => List(c) :: r)
+      case (i, ls) if (ls.length.equals(i)) => ls :: Nil
+      case (i, ys) => combinations(i - 1, ys.tail).map(zs => ys.head :: zs) ::: combinations(i, ys.tail)
+  }                                               //> combinations: [A](n: Int, ls: List[A])List[List[A]]
+    
+    combinations(2, List('a, 'b, 'c))             
+    //> res27: List[List[Symbol]] = List(List('a, 'c), List('a, 'b), List('b, 'c)) 
+
+// Determine whether a given integer number is prime.
+def isPrime(n: Int) = (2 until n).forall(d => n % d != 0)
+                                                  //> isPrime: (n: Int)Boolean
+isPrime(11)                                       //> res28: Boolean = true
+
+// Determine the greatest common divisor of two positive integer numbers.
+def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+                                                  //> gcd: (a: Int, b: Int)Int
+gcd(36, 63)                                       //> res29: Int = 9
+
+//  Determine whether two positive integer numbers are coprime.
+def isCoprime(a: Int, b: Int): Boolean = gcd(a,b) == 1
+                                                  //> isCoprime: (a: Int, b: Int)Boolean
+isCoprime(35,64)                                  //> res30: Boolean = true
+
+// Generate the Pythagorean Triples
+def generatePythagoreanTriples = {
+	  for { c <- Stream from 3
+   			  a <- 2 until c
+   			  b <- 1 until c
+   			  if (Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(c, 2))
+   		}
+		yield (a, b, c)
+}
+//> generatePythagoreanTriples: => scala.collection.immutable.Stream[(Int, Int, Int)]
+
+generatePythagoreanTriples.take(10).toList.mkString("\n").replaceAll ("[A-Za-z,()]", " ")
+                                                  //> res31: String = " 3 4 5 
+                                                  //|  4 3 5 
+                                                  //|  6 8 10 
+                                                  //|  8 6 10 
+                                                  //|  5 12 13 
+                                                  //|  12 5 13 
+                                                  //|  9 12 15 
+                                                  //|  12 9 15 
+                                                  //|  8 15 17 
+                                                  //|  15 8 17 "
+
+
+}

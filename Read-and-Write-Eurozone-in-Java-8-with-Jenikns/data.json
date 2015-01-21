@@ -1,0 +1,121 @@
+{
+        "source": "Economist",
+        "year": 2012,
+        "eurozoneMembers": 18,
+        "country": [
+            {
+                "name": "Austria",
+                "population": 8430,
+                "gdp": 399,
+                "debt": 81.2
+            },
+            {
+                "name": "Belgium",
+                "population": 11.128,
+                "gdp": 485,
+                "debt": 104
+            },
+            {
+                "name": "Cyprus",
+                "population": 1.129,
+                "gdp": 23,
+                "debt": 102.2
+            },
+            {
+                "name": "Estonia",
+                "population": 1.329,
+                "gdp": 250,
+                "debt": 56
+            },
+            {
+                "name": "Finland",
+                "population": 5.414,
+                "gdp": 250,
+                "debt": 56
+            },
+            {
+                "name": "France",
+                "population": 65.697,
+                "gdp": 2609,
+                "debt": 92.2
+            },
+            {
+                "name": "Germany",
+                "population": 80.426,
+                "gdp": 3401,
+                "debt": 76.9
+            },
+            {
+                "name": "Greece",
+                "population": 11.093,
+                "gdp": 249,
+                "debt": 174.9
+            },
+            {
+                "name": "Ireland",
+                "population": 4.587,
+                "gdp": 210,
+                "debt": 12.3
+            },
+            {
+                "name": "Italy",
+                "population": 59.540,
+                "gdp": 2014,
+                "debt": 127.9
+            },
+            {
+                "name": "Latvia",
+                "population": 2.034,
+                "gdp": 28,
+                "debt": 38.2
+            },
+            {
+                "name": "Lithuania",
+                "population": 2.944,
+                "gdp": 42,
+                "debt": 39
+            },
+            {
+                "name": "Luxembourg",
+                "population": 531,
+                "gdp": 57,
+                "debt": 23.6
+            },
+            {
+                "name": "Malta",
+                "population": 419,
+                "gdp": 9,
+                "debt": 69.8
+            },
+            {
+                "name": "Netherlands",
+                "population": 16.755,
+                "gdp": 773,
+                "debt": 68.6
+            },
+            {
+                "name": "Portugal",
+                "population": 10.515,
+                "gdp": 213,
+                "debt": 128
+            },
+            {
+                "name": "Slovakia",
+                "population": 5.048,
+                "gdp": 92,
+                "debt": 54.6
+            },
+             {
+                "name": "Slovenia",
+                "population": 2.057,
+                "gdp": 46,
+                "debt": 70.4
+            },
+             {
+                "name": "Spain",
+                "population": 46.761,
+                "gdp": 1352,
+                "debt": 92.1
+            }
+        ]
+}

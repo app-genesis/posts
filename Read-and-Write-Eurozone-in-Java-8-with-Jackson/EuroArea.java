@@ -28,7 +28,7 @@ public class EuroArea {
 											 			 .max(Comparator.naturalOrder()).get() + "%");
 
 		System.out.print("Which country has the lowest debt-to-GDP ratio in Eurozone? " + eurozone.getCountry().stream()
-												.collect(Collectors.minBy(Comparator.comparing(Country::getDebt))).get());
+												                       .collect(Collectors.minBy(Comparator.comparing(Country::getDebt))).get());
 		
 		System.out.println("What is the debt per person in each country? (in thousands $) " + eurozone.getCountry().stream()
 															   .collect(Collectors.toMap(

@@ -43,7 +43,7 @@ public class EuroArea {
 		objectMapper.writeValue(new File("C:\\kepler\\Eurozone\\src\\data2.json"),  ideal);
 		
 		Country idealEurope = objectMapper.readValue(new File("C:\\kepler\\Eurozone\\src\\data2.json"), Country.class);				
-	    System.out.println("Ideal Europe: " + idealEurope.toString());
+	    	System.out.println("Ideal Europe: " + idealEurope.toString());
 			
 	}
 }

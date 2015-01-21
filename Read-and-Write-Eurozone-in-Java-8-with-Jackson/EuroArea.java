@@ -13,26 +13,27 @@ public class EuroArea {
 		Eurozone eurozone = objectMapper.readValue(new File("C:\\kepler\\Eurozone\\src\\data.json"), Eurozone.class);
 				
 		System.out.println(eurozone);
-		System.out.println("Countries with debt more than 80%: " + eurozone.getCountry().stream()
-														 					.filter(country -> country.getDebt() > 80)
-														 					.map(Country::getName)
-														 					.collect(Collectors.joining(", ")));
+		System.out.println("Which countries have more than 80% debt-to-GDP ratio? " + eurozone.getCountry().stream()
+														   .filter(country -> country.getDebt() > 80)
+														   .map(Country::getName)
+														   .collect(Collectors.joining(", ")));
 		
-		System.out.println("Countries with more than 100% debt: " + eurozone.getCountry().stream()
-																		 .filter(country -> country.getDebt() > 100)
-																		 .collect(Collectors.groupingBy(Country::getName,
-																		          Collectors.summingDouble(Country::getDebt))));
+		System.out.println("Whcih countries exceed 100% debt-to-GDP ratio? " + eurozone.getCountry().stream()
+												            .filter(country -> country.getDebt() > 100)
+													    .collect(Collectors.groupingBy(Country::getName,
+													             Collectors.summingDouble(Country::getDebt))));
 		
-		System.out.println("Highest Debt: " + eurozone.getCountry().stream().map(Country::getDebt)
-											 			  					.max(Comparator.naturalOrder()).get() + "%");
+		System.out.println("Which is the highest debt-to-GDP ratio in Eurozone: " + eurozone.getCountry().stream()
+														 .map(Country::getDebt)
+											 			 .max(Comparator.naturalOrder()).get() + "%");
 
-		System.out.print("Which country has the lowest debt: " + eurozone.getCountry().stream()
+		System.out.print("Which country has the lowest debt-to-GDP ratio in Eurozone? " + eurozone.getCountry().stream()
 												.collect(Collectors.minBy(Comparator.comparing(Country::getDebt))).get());
 		
-		System.out.println("How much money each person owes per country (in thousands $)? " + eurozone.getCountry().stream()
-																 .collect(Collectors.toMap(
-																 Country::getName,
-																 c -> (int)((c.getGDP()*c.getDebt())/c.getPopulation())/100)));
+		System.out.println("What is the debt per person in each country? (in thousands $) " + eurozone.getCountry().stream()
+															   .collect(Collectors.toMap(
+															            Country::getName,
+																    c -> (int)((c.getGDP()*c.getDebt())/c.getPopulation())/100)));
 									   
 		System.out.println("\nLet's create an ideal europe!!!");
 		Country ideal = new Country();

@@ -18,7 +18,7 @@ public class EuroArea {
 														   .map(Country::getName)
 														   .collect(Collectors.joining(", ")));
 		
-		System.out.println("Whcih countries exceed 100% debt-to-GDP ratio? " + eurozone.getCountry().stream()
+		System.out.println("Which countries exceed 100% debt-to-GDP ratio? " + eurozone.getCountry().stream()
 												            .filter(country -> country.getDebt() > 100)
 													    .collect(Collectors.groupingBy(Country::getName,
 													             Collectors.summingDouble(Country::getDebt))));

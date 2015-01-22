@@ -23,7 +23,7 @@ public class EuroArea {
 													    .collect(Collectors.groupingBy(Country::getName,
 													             Collectors.summingDouble(Country::getDebt))));
 		
-		System.out.println("Which is the highest debt-to-GDP ratio in Eurozone: " + eurozone.getCountry().stream()
+		System.out.println("Which is the highest debt-to-GDP ratio in Eurozone? " + eurozone.getCountry().stream()
 														 .map(Country::getDebt)
 											 			 .max(Comparator.naturalOrder()).get() + "%");
 
